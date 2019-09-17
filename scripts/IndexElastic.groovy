@@ -71,7 +71,7 @@ if (!username.isEmpty() &&  !password.isEmpty()) {
 		new UsernamePasswordCredentials(username, password));
 
 	restClient = RestClient.builder(
-		new HttpHost(esUrl.getHost(), esUrl.getPort()))
+		new HttpHost(esUrl.getHost(), esUrl.getPort(), esUrl.getProtocol()))
 		.setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
         @Override
         public HttpAsyncClientBuilder customizeHttpClient(
@@ -192,7 +192,7 @@ def index(def indexName, def obj) {
 void indexOntology(String fileName, def data) {
     // Initialize index
     initIndex()
-    
+	
     OWLOntologyManager manager = OWLManager.createOWLOntologyManager()
     OWLOntology ont = manager.loadOntologyFromOntologyDocument(new File(fileName))
     OWLDataFactory fac = manager.getOWLDataFactory()
